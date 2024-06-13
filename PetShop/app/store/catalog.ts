@@ -7,7 +7,7 @@ export const useCatalogStore = defineStore("catalog", () => {
 
   async function getCatalog(id: string) {
     debugger;
-    const data = await useAPI(`/api/catalog/getcatalog/${id}`).catch((ex) => {
+    const data = await $fetch(`/api/catalog/getcatalog/${id}`,{credentials: 'include'}).catch((ex) => {
       console.log(ex);
     });
     return data;
@@ -15,9 +15,9 @@ export const useCatalogStore = defineStore("catalog", () => {
 
   async function getAuthCatalog(id, userName) {
     debugger;
-    const data = await useAPI(
+    const data = await $fetch(
       `/api/catalog/getauthcatalog/${id}?user=${userName}`
-    ).catch((ex) => {
+    ,{credentials: 'include'}).catch((ex) => {
       console.log(ex);
     });
     return data;
@@ -25,7 +25,7 @@ export const useCatalogStore = defineStore("catalog", () => {
 
   async function getCategory() {
     debugger;
-    const data = await useAPI("/api/catalog/getcategory").catch((ex) => {
+    const data = await $fetch("/api/catalog/getcategory",{credentials: 'include'}).catch((ex) => {
       console.log(ex);
     });
     return data;

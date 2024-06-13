@@ -7,7 +7,8 @@ export const useItemStore = defineStore("item", () => {
 
   async function getItem(id: string, userName: string) {
     debugger;
-    const data = await useAPI(`/api/catalog/getitem/${id}?user=${userName}`, {
+    const data = await $fetch(`/api/catalog/getitem/${id}?user=${userName}`, {
+      credentials: 'include',
       method: "GET",
     }).catch((ex) => {
       console.log(ex);
@@ -17,8 +18,7 @@ export const useItemStore = defineStore("item", () => {
   }
 
   async function getCategory() {
-    debugger;
-    const data = await useAPI("/api/catalog/getcategory").catch((ex) => {
+    const data = await $fetch("/api/catalog/getcategory",{credentials: 'include'}).catch((ex) => {
       console.log(ex);
     });
     return data;

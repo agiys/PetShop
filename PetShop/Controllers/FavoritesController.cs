@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PetShop.Data;
 using PetShop.Models;
@@ -57,6 +58,7 @@ namespace PetShop.Controllers
             public string? User { get; set; }
         }
 
+        [Authorize]
         [HttpPost("additem")]
         public async Task<ActionResult> AddFavoriteItem([FromBody] AddFavoriteItemRequest request)
         {
@@ -89,7 +91,7 @@ namespace PetShop.Controllers
             public int CatalogId { get; set; }
             public string UserName { get; set; }
         }
-
+        [Authorize]
         [HttpDelete("deleteitem")]
         public async Task<ActionResult> DeliteCartItems([FromBody] int favoriteItemId)
         {

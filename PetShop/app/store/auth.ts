@@ -8,7 +8,8 @@ export const useAuthStore = defineStore("auth", () => {
 
   async function authorizate(payload) {
     try {
-      const data = await useAPI("/api/auth/login", {
+      const data = await $fetch("/api/auth/login", {
+        credentials: 'include',
         method: "POST",
         body: JSON.stringify(payload),
         headers: {
@@ -26,7 +27,7 @@ export const useAuthStore = defineStore("auth", () => {
         }; expires=${expires.toUTCString()}; path=/`;
 
         console.log("Токен сохранен в куки:", data.token);
-        return data;
+        return data.username;
       } else {
         throw new Error("Невалидный запрос");
       }
@@ -36,5 +37,24 @@ export const useAuthStore = defineStore("auth", () => {
     }
   }
 
-  return { authorizate, isAuth, userName };
+  async function register(payload) {
+    try {
+      const data = await $fetch("/api/auth/register", {
+        credentials: 'include',
+        method: "POST",
+        body: JSON.stringify(payload),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if(data){
+        return data;
+      }
+    } catch (error) {
+      console.error("Ошибка регистрации:", error);
+      throw error;
+    }
+  }
+
+  return { authorizate, isAuth, userName,register };
 });

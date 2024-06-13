@@ -6,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using PetShop.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
+using PetShop.Models;
 
 namespace PetShop.Controllers
 {
@@ -66,5 +67,31 @@ namespace PetShop.Controllers
             public string Token { get; set; }
             public string Username { get; set; }
         }
+        [HttpPost("register")]
+        public async Task<ActionResult<LoginResponse>> Register(LoginRequest request)
+        {
+        try { 
+            var existingUser = await _context.Users.FirstOrDefaultAsync(u => u.Name == request.Login);
+            if (existingUser != null)
+            {
+                return Conflict("Пользователь с таким именем уже существует");
+            }
+            var newUser = new Users
+            {
+                Name = request.Login,
+                Password = request.Password
+                // Другие поля пользователя, если они есть
+            };
+
+            _context.Users.Add(newUser);
+            await _context.SaveChangesAsync();
+
+            return Ok("Пользователь успешно зарегистрирован");
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Произошла ошибка при регистрации пользователя: {ex.Message}");
+        }
+      }
     }
 }

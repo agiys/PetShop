@@ -16,21 +16,6 @@ namespace PetShop.Controllers
             _context = context;
         }
 
-        [HttpGet("testconnection")]
-        public IActionResult TestConnection()
-        {
-            bool canConnect = _context.Database.CanConnect();
-
-            if (canConnect)
-            {
-                return Ok("Database connection is successful.");
-            }
-            else
-            {
-                return StatusCode(500, "Failed to connect to the database.");
-            }
-        }
-
         [HttpGet("getcategory")]
         public async Task<ActionResult<IEnumerable<CategoryItem>>> GetCategoryItems()
         {

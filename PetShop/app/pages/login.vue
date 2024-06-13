@@ -49,7 +49,16 @@
           color="primary"
         />
       </div>
+      <div class="font-bold">
+        <nuxt-link
+          :to="`/register`"
+          class="no-underline"
+        >
+          Зарегистрироваться
+        </nuxt-link>
     </div>
+    </div>
+
   </div>
 </template>
 <script setup lang="ts">

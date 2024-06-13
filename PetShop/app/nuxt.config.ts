@@ -5,6 +5,14 @@ export default defineNuxtConfig({
         '@nuxt/ui',
         '@pinia/nuxt'
     ],
+    routeRules: {
+        '/api/**': {
+            proxy: { to: 'http://localhost:5000/api/**' },
+        },
+        "^/api/**": {
+            proxy: { to: 'http://localhost:5000/api/**' },
+        },
+    },
     css: ['~/assets/css/main.css'],
     postcss: {
         plugins: {

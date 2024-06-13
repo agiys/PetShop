@@ -36,7 +36,7 @@ debugger
       size="sm"
       @click="logIn()"
       square
-      v-if="(!token && route.path !== '/login')"
+      v-if="(!authStore.userName && route.path !== '/login')"
       title="Войти"
       class="transition ease-in-out delay-150 bg-orange-500 hover:-translate-y-2 hover:scale-150 hover:bg-orange-600 duration-600"
       variant="solid">
@@ -45,7 +45,7 @@ debugger
     label="Выйти"
     icon="ic:baseline-logout"
       size="sm"
-      v-else-if="(token && route.path !== '/login')"
+      v-else-if="(authStore.userName && route.path !== '/login')"
       square
       @click="logOut()"
       title="Выйти"

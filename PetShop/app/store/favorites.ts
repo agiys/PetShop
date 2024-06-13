@@ -6,7 +6,8 @@ export const useFavoritesStore = defineStore("favorites", () => {
   const token = ref(useCookie("auth_token"));
 
   async function getFavorites(user: any) {
-    const data = await useAPI("/api/favorites/getfavorites", {
+    const data = await $fetch("/api/favorites/getfavorites", {
+      credentials: 'include',
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -20,7 +21,8 @@ export const useFavoritesStore = defineStore("favorites", () => {
 
   async function addFavoritesItem(catalogId: any, userName: any) {
     debugger;
-    const data = await useAPI("/api/favorites/additem", {
+    const data = await $fetch("/api/favorites/additem", {
+      credentials: 'include',
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -34,8 +36,8 @@ export const useFavoritesStore = defineStore("favorites", () => {
   }
 
   async function deliteFavoritesItem(favoriteItemId: any) {
-    debugger;
-    const data = await useAPI("/api/favorites/deleteitem", {
+    const data = await $fetch("/api/favorites/deleteitem", {
+      credentials: 'include',
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
