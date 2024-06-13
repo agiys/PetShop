@@ -8,7 +8,8 @@ export default defineNuxtRouteMiddleware((to) => {
     }
     async function getUserInfo() {
         debugger
-            const data = await useAPI('/api/auth/user',{
+        const data = await $fetch('/api/auth/user', {
+            credentials: 'include',
                 headers: { Authorization: `Bearer ${token.value}` }
             })
             .catch(ex => { console.log(ex) })
